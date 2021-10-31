@@ -7,6 +7,7 @@ package rotatelogs
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -245,6 +246,8 @@ func (rl *RotateLogs) rotate(filename string) error {
 	}
 
 	cutoff := rl.clock.Now().Add(-1 * rl.maxAge)
+	//////////////////////////////
+	log.Println(cutoff)
 	var toUnlink []string
 	for _, path := range matches {
 		// Ignore lock files
@@ -261,7 +264,8 @@ func (rl *RotateLogs) rotate(filename string) error {
 		if err != nil {
 			continue
 		}
-
+		///////////////////////////////改成日期比较
+		log.Println(fi.ModTime())
 		if rl.maxAge > 0 && fi.ModTime().After(cutoff) {
 			continue
 		}
