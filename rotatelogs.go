@@ -265,7 +265,8 @@ func (rl *RotateLogs) rotate(filename string) error {
 			continue
 		}
 		///////////////////////////////改成日期比较
-		log.Println(fi.ModTime())
+		x := fi.ModTime().String()
+		log.Println(x)
 		if rl.maxAge > 0 && fi.ModTime().After(cutoff) {
 			continue
 		}
